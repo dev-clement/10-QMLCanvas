@@ -1,0 +1,40 @@
+= QML Canvas create type on QML directly
+In this article, we'll see how we can create type only for display on QML using the Canvas type
+
+:toc:
+:sectnums:
+
+== Introduction
+In this article, we'll see how we create create custom visual type only from QML using the Canvas QML type
+
+=== Definition
+The Canvas item allows drawing of straight and curved lines, simple and complex shapes, graphs, and reference graphic images. It can also add color, shadow, gradient and even pattern, as well as doing some low-level operations. The canvas output may be saved as an external image file or serialized to an URL.
+
+NOTE: Rendering to the Canvas is done using a link:git@github.com:dev-clement/10-QMLCanvas.git[Context2D] object, usually as a result of a link:https://doc.qt.io/qt-6/qml-qtquick-canvas.html#paint-signal[paint] signal.
+
+=== How to use it
+In order to define a drawing area on the `Canvas` item, you need to set both `width` and `height` properties.
+
+NOTE: The following code will creates a Canvas item which has a drawing area of 200 of width and 100 of height:
+
+```json
+import QtQuick 2.0
+Canvas {
+    id: mycanvas
+    width: 100
+    height: 200
+    onPaint: {
+        var ctx = getContext("2d");
+        ctx.fillStyle = Qt.rgba(1, 0, 0, 1);
+        ctx.fillRect(0, 0, width, height);
+    }
+}
+```
+
+IMPORTANT: Currently, the Canvas item only support the two-dimensional rendering context !
+
+== Drawing in canvas
+According to the snipppet put above, we can see that a canvas is taking both `width` and `height` and also respond to a signal `paint`, it'll respond using the `onPaint` handler.
+
+=== onPaint handler
+This handler will get the `Context2D` and then fill the content of the `width` and `height` to drawing to the screen using both `fillStyle` and `fillRect`.
